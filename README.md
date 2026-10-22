@@ -109,3 +109,9 @@ uv run pytest -q                                   # 64 tests; test_model.py run
 BASIVO_PII_API_KEY=... uv run python scripts/smoke.py http://localhost:8000      # a running server, end to end
 uv run python scripts/evaluate.py <test.jsonl> [--limit N]   # model alone vs the whole wrapper, our scoring
 ```
+
+## License
+
+The code is licensed under [Apache-2.0](LICENSE): you can use, change and run it, commercially too, including as a
+hosted service. The model weights are separate: they are gated on Hugging Face, and each deployment needs approved
+access (see [Model access](#model-access-required)).
