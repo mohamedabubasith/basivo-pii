@@ -1,0 +1,29 @@
+# basivo-pii config. The server reads the file named in BASIVO_PII_CONFIG (default: this file).
+
+model:
+  name: abubasith86/pii-nemotron-mmbert-base-v1
+  revision: ffd83d9b278deed7a4c33a3051687a0fe2d8ff35   # pinned commit
+  max_len: 1024        # tokens per window
+  stride: 256          # tokens of overlap between windows
+  device: auto         # auto = cuda, then mps, then cpu
+  fp16: true           # on cuda only
+  batch_size: 16       # windows per forward pass
+
+thresholds:            # a finding below its label's threshold is dropped
+  default: 0.5
+
+rules:
+  enabled: true
+  disable: []          # built-in rule names to switch off, e.g. [driving_licence]
+  add: []              # own rules, e.g.
+  #  - name: employee_no
+  #    label: CUSTOMER_ID
+  #    regex: '\bEMP-\d{6}\b'
+  #    score: 0.9
+  #    context: [employee]
+
+operators:             # per label; DEFAULT for the rest. Without DEFAULT: replace with [LABEL]
+  DEFAULT: {type: replace}
+  # CARD_NUMBER: {type: mask, char: "*", chars: 12}
+  # PERSON_NAME: {type: pseudonymize}
+  # EMAIL: {type: hash}                  # key: BASIVO_PII_SECRET
